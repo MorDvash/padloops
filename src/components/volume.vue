@@ -1,8 +1,9 @@
 <template>
   <div class="q-mt-xl">
-    <q-item>
+    <q-item :class="item">
       <q-item-section side>
-        <q-icon name="volume_down"/>
+        <q-icon v-if="volume > 0" name="fas fa-volume-up"/>
+        <q-icon v-else name="fas fa-volume-mute"/>
       </q-item-section>
       <q-item-section>
         <q-slider
@@ -27,10 +28,21 @@ export default {
     }
   },
   computed: {
-    ...mapState('padLoops', ['audioPlay' , 'padsButton','record']),
+    ...mapState('padLoops', ['audioPlay' , 'record' , 'audioRecord']),
+    item(){
+        if (!this.$q.platform.is.desktop) {
+          return ''
+        } else
+          return 'itemWidth'
+      },
   },
   watch: {
     volume(){
+      if (this.record){
+        this.audioRecord.forEach(pad =>{
+          pad.volume = this.volume / 100
+        })
+      }
       this.audioPlay.forEach(pad =>{
        pad.volume = this.volume / 100
       })
@@ -40,5 +52,7 @@ export default {
 </script>
 
 <style scoped>
-
+.itemWidth{
+  width: 40%;
+}
 </style>

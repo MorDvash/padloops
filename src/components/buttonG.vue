@@ -1,19 +1,27 @@
 <template>
   <div class="marginB btn">
     <div>
-      <q-btn
+      <q-btn v-if="this.$q.platform.is.desktop"
         color="primary"
         :label="button.name"
         size="lg"
         no-caps
         @click="addPad"
       />
-      <q-spinner-bars v-if="active"
+      <q-btn v-if="this.$q.platform.is.mobile"
+        :color="color"
+        :icon="button.icon"
+        size="lg"
+        no-caps
+        @click="addPad"
+      />
+      <q-spinner-bars v-if="active && this.$q.platform.is.desktop"
                       color="primary"
-                      size="2em"></q-spinner-bars>
+                      size="2em">
+      </q-spinner-bars>
     </div>
 
-    <audio :id="button.name" class="none" autoplay loop muted controls>
+    <audio :id="button.name" class="none" loop controls>
       <source :src="button.url">
       Your browser does not support the audio tag.
     </audio>
@@ -35,16 +43,27 @@ export default {
     }
   },
   computed: {
-    ...mapState('padLoops', ['audioPlay', 'padsButton']),
+    color(){
+      if(this.active){
+        return 'secondary'
+      }else {
+        return 'primary'
+      }
+    },
+    ...mapState('padLoops', ['audioPlay', 'padsButton','record']),
   },
   methods: {
-    ...mapMutations('padLoops', ['addPadToAudio', 'removePad', 'activeUnActivePad']),
+    ...mapMutations('padLoops', ['addPadToAudio', 'removePad', 'activeUnActivePad' , 'addAudioRecord' , 'removeAudioRecord']),
     toggleAudio(audio) {
       audio.play();
        this.index = this.padsButton.findIndex(p => p.name === this.button.name)
        this.activeUnActivePad({status: true, index: this.index});
        this.active = true
-      this.addPadToAudio(audio)
+      if (this.record){
+        this.addAudioRecord(audio)
+      }else {
+        this.addPadToAudio(audio)
+      }
     },
     addPad() {
       const audio = document.getElementById(this.button.name);
@@ -67,7 +86,11 @@ export default {
         this.index = this.padsButton.findIndex(p => p.name === this.button.name)
         this.activeUnActivePad({status: false, index: this.index});
         this.active = false
-        this.removePad(audio)
+        if (this.record){
+          this.removeAudioRecord(audio)
+        }else {
+          this.removePad(audio)
+        }
       }
     }
   },
@@ -76,7 +99,6 @@ export default {
      return !!this.padsButton[this.index].active
     }
   }
-
 }
 </script>
 

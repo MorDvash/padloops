@@ -1,5 +1,6 @@
-export default  {
-  audioPlay:[],
-  padsButton:[],
-  record:false
+export default {
+    audioPlay: [],
+    padsButton: [],
+    record: false,
+    audioRecord:[]
 }

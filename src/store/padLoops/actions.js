@@ -8,9 +8,6 @@ export default {
       data.musicPlay.forEach(loop => {
         loop.pause()
       })
-      // this.padsButton.forEach(pad => {
-      //   pad.active = false
-      // })
     }
   },
 }
