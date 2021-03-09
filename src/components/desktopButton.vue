@@ -21,7 +21,7 @@
                       @click="recording">{{ record ? 'Stop Recording' : 'Start Recording' }}
                     </q-item-section>
                   </q-item>
-                  <q-item :clickable="audioRecord.length > 0 && !record">
+                  <q-item  v-if="audioRecord.length > 0 && !record" clickable>
                     <q-item-section
                       @click="playRecord">{{ isPlayingRecord ? 'Delete Record' : 'Play Session' }}
                     </q-item-section>
