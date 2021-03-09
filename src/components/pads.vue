@@ -2,7 +2,7 @@
   <div class="q-mt-xl">
       <q-card class="my-card">
         <div :class="position">
-        <q-card-actions >
+        <q-card-actions>
           <div :class="mr">
             <div class="q-mt-lg" v-for="pad in padsButton.slice(0,3)">
               <button-g :button="pad"/>
@@ -43,7 +43,7 @@ export default {
       if (!this.$q.platform.is.desktop) {
         return 'row mt'
       } else
-        return 'row mt'
+        return 'row mt cardH'
     },
     ml() {
       if (!this.$q.platform.is.desktop) {
@@ -76,5 +76,11 @@ export default {
 <style scoped>
 .mt {
 justify-content: center;
+}
+.cardH{
+  height: 30.9rem;
+}
+.divW{
+
 }
 </style>

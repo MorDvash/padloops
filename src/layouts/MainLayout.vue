@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated style="background-color: #ffb400">
 
       <q-toolbar>
         <q-icon
@@ -19,9 +19,9 @@
             no-caps
             class="bg-grey-2 text-primary"
           >
-            <q-btn class="col" color="primary" glossy icon="fas fa-play"
+            <q-btn class="col" color="warning" glossy icon="fas fa-play"
                    @click="musicStatus({status : 0, musicPlay: audioPlay})" />
-            <q-btn class="col" color="primary" glossy icon="fas fa-pause"
+            <q-btn class="col" color="warning" glossy icon="fas fa-pause"
                    @click="musicStatus({status : 1, musicPlay: audioPlay})" />
           </q-tabs>
     </q-footer>

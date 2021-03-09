@@ -10,7 +10,7 @@
           v-model="volume"
           :min="0"
           :max="100"
-          label
+          color="white"
         />
       </q-item-section>
     </q-item>
