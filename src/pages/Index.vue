@@ -1,19 +1,19 @@
 <template>
   <q-page>
     <div class="row">
-      <div class="col-md-5 col-12">
-        <volume/>
+      <div class="col-md-3 col-12">
+        <volume v-if="this.$q.platform.is.mobile"/>
       </div>
       <div class="col-6">
-        <desktop-button/>
+        <desktop-button v-if="this.$q.platform.is.desktop"/>
       </div>
     </div>
     <pads/>
-    <div class="row">
+    <div v-if="this.$q.platform.is.mobile" class="row">
       <div class="col-5">
       </div>
       <div class="col-6 mt">
-        <recording/>
+        <recording />
       </div>
     </div>
   </q-page>
@@ -27,7 +27,10 @@ import DesktopButton from "components/desktopButton";
 
 export default {
   name: 'PageIndex',
-  components: {DesktopButton, Recording, Volume, Pads}
+  components: {DesktopButton, Recording, Volume, Pads},
+  created() {
+    this.$q.dark.set(true)
+  }
 }
 </script>
 <style scoped>

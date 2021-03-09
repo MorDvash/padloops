@@ -27,7 +27,10 @@ export default {
     }
   },
   deleteRecord: (state) => {
-    state.audioRecord=[]
+    state.audioRecord = []
+  },
+  isPlayingRecordStatus:(state) =>{
+    state.isPlayingRecord = !state.isPlayingRecord
   }
 }
 

@@ -2,23 +2,20 @@
   <div class="marginB btn">
     <div>
       <q-btn v-if="this.$q.platform.is.desktop"
-        color="primary"
-        :label="button.name"
-        size="lg"
-        no-caps
-        @click="addPad"
+             :color="color"
+             :label="button.name"
+             size="lg"
+             no-caps
+             rounded
+             @click="addPad"
       />
       <q-btn v-if="this.$q.platform.is.mobile"
-        :color="color"
-        :icon="button.icon"
-        size="lg"
-        no-caps
-        @click="addPad"
+             :color="color"
+             :icon="button.icon"
+             size="lg"
+             no-caps
+             @click="addPad"
       />
-      <q-spinner-bars v-if="active && this.$q.platform.is.desktop"
-                      color="primary"
-                      size="2em">
-      </q-spinner-bars>
     </div>
 
     <audio :id="button.name" class="none" loop controls>
@@ -38,30 +35,30 @@ export default {
     return {
       autoplay: 'false',
       index: 0,
-      audio1 : document.getElementById(this.button.name),
-      active:false
+      audio1: document.getElementById(this.button.name),
+      active: false
     }
   },
   computed: {
-    color(){
-      if(this.active){
-        return 'secondary'
-      }else {
-        return 'primary'
+    color() {
+      if (this.active) {
+        return 'dark'
+      } else {
+        return 'warning'
       }
     },
-    ...mapState('padLoops', ['audioPlay', 'padsButton','record']),
+    ...mapState('padLoops', ['audioPlay', 'padsButton', 'record']),
   },
   methods: {
-    ...mapMutations('padLoops', ['addPadToAudio', 'removePad', 'activeUnActivePad' , 'addAudioRecord' , 'removeAudioRecord']),
+    ...mapMutations('padLoops', ['addPadToAudio', 'removePad', 'activeUnActivePad', 'addAudioRecord', 'removeAudioRecord']),
     toggleAudio(audio) {
       audio.play();
-       this.index = this.padsButton.findIndex(p => p.name === this.button.name)
-       this.activeUnActivePad({status: true, index: this.index});
-       this.active = true
-      if (this.record){
+      this.index = this.padsButton.findIndex(p => p.name === this.button.name)
+      this.activeUnActivePad({status: true, index: this.index});
+      this.active = true
+      if (this.record) {
         this.addAudioRecord(audio)
-      }else {
+      } else {
         this.addPadToAudio(audio)
       }
     },
@@ -86,17 +83,17 @@ export default {
         this.index = this.padsButton.findIndex(p => p.name === this.button.name)
         this.activeUnActivePad({status: false, index: this.index});
         this.active = false
-        if (this.record){
+        if (this.record) {
           this.removeAudioRecord(audio)
-        }else {
+        } else {
           this.removePad(audio)
         }
       }
     }
   },
-  watch:{
-   active(){
-     return !!this.padsButton[this.index].active
+  watch: {
+    active() {
+      return !!this.padsButton[this.index].active
     }
   }
 }
